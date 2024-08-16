@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parallax Background</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/rellax/rellax.min.js"></script>
+</head>
+
+<body id="body" class="parallax">
+    <img id="wazir" class="wazir" src="img/wazir_foreground.png" />
+
+    <header id="header" class="header">
+
+    </header>
+    <div class="content" id="content">
+        <section class="section">
+            <h1>SEC 1</h1>
+            <p>Lorem ipsum dolor sit amet...</p>
+        </section>
+        <section class="section">
+            <h1>SEC 2</h1>
+            <p>Lorem ipsum dolor sit amet...</p>
+        </section>
+        <section class="section">
+            <h1>SEC 3</h1>
+            <p>Lorem ipsum dolor sit amet...</p>
+        </section>
+    </div>
+
+    <script>
+
+        const flipAndChangeImage = () => {
+            console.log('flipAndChangeImage called');
+            const image = document.getElementById('wazir');
+            // Adjust the multiplier for desired rotation speed
+            // rotationDegree += 360;
+            image.style.transform = `rotateY(180deg)`;
+            setTimeout(() => {
+                image.style.transform = `rotateY(360deg)`;
+                image.style.transform = `rotateY(0deg)`;
+            }, 100)
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('.section');
+            const options = {
+                root: null, // Use the viewport as the root
+                rootMargin: '0px',
+                threshold: 0.5 // Adjust this value to determine when a section is considered "visible"
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // console.log('Section changed:', entry.target);
+                        flipAndChangeImage();
+                        // Add your code to handle section change here
+                    }
+                });
+            }, options);
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+
+    </script>
+
+</body>
+
+</html>
